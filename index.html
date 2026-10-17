@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Funciones del equipo BDR · v3</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&amp;family=Fredoka:wght@400;600&amp;display=swap" rel="stylesheet">
+<style>
+:root{--navy:#14152E;--g:#30A55E;--w:#FFFFFF;--ln:rgba(255,255,255,.22)}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;background:var(--navy);font-family:'Fredoka','Segoe UI',Arial,sans-serif;color:var(--w)}
+.s{display:none;height:100vh;height:100dvh;padding:9vh 6vw;flex-direction:column;justify-content:center;position:relative;overflow:auto;background:var(--navy);color:var(--w)}
+.s.on{display:flex}
+.s::before{content:"SMARTHR LATAM  ·  GROWTH & EXPANSIÓN";position:absolute;top:3.6vh;left:6vw;font-size:clamp(9px,.9vw,13px);letter-spacing:.18em;color:var(--g)}
+.s::after{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--g)}
+h1,h2,h3{font-family:'Poppins','Segoe UI',Arial,sans-serif;line-height:1.15}
+h1{font-size:clamp(30px,5vw,66px);font-weight:700}
+h2{font-size:clamp(20px,2.6vw,36px);font-weight:600;margin-bottom:3vh;padding-bottom:1.4vh;position:relative}
+h2::after{content:"";position:absolute;left:0;bottom:0;width:70px;height:4px;border-radius:2px;background:var(--g)}
+.sub{font-size:clamp(14px,1.7vw,23px);margin-top:1.8vh}.sub b{color:var(--g)}
+.tag{display:inline-block;border:1px solid var(--g);color:var(--g);border-radius:20px;padding:.6vh 1.3vw;font-size:clamp(12px,1.2vw,17px);margin:3vh .7vw 0 0}
+.grid{display:grid;gap:1.8vw}.g2{grid-template-columns:1fr 1fr}
+.card{border:1px solid var(--ln);border-top:3px solid var(--g);border-radius:14px;padding:2.6vh 1.8vw;font-size:clamp(12px,1.35vw,19px);line-height:1.5}
+.card h3{font-size:clamp(14px,1.7vw,24px);color:var(--g);margin-bottom:1.4vh}
+.card ul{padding-left:1.1em}.card li{margin-bottom:1vh}.card li::marker{color:var(--g)}
+table{width:100%;border-collapse:separate;border-spacing:0;font-size:clamp(12px,1.4vw,19px);border:1px solid var(--ln);border-radius:12px;overflow:hidden}
+th{background:var(--g);color:var(--w);text-align:left;padding:1.4vh 1.1vw;font-weight:600}
+td{padding:1.4vh 1.1vw;border-top:1px solid var(--ln)}td:first-child{font-weight:600}
+.note{font-size:clamp(11px,1.1vw,15px);opacity:.7;margin-top:2vh}
+.tools{display:flex;flex-wrap:wrap;gap:.8vw;align-items:center;margin-bottom:2vh;font-size:clamp(11px,1.15vw,16px)}
+.tools button{background:transparent;color:var(--g);border:1px solid var(--g);border-radius:18px;padding:.7vh 1.1vw;cursor:pointer;font:inherit}
+.tools button:hover{background:var(--g);color:var(--w)}
+.tools input,.wt{background:transparent;color:var(--w);border:1px solid var(--ln);border-radius:6px;padding:.3vh .4vw;font:inherit;width:4.2em}
+.pl{display:grid;grid-template-columns:2.6fr repeat(5,1fr) 1.5fr;gap:.55vw;font-size:clamp(11px,1.2vw,17px)}
+.dh{font-weight:700;text-align:center;color:var(--g);align-self:end}
+.bl{display:flex;flex-direction:column;justify-content:center;gap:.3vh;font-weight:600}.bl label{font-weight:400;font-size:.85em;opacity:.75}
+.cell{border:2px dashed var(--ln);border-radius:8px;min-height:6.5vh;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:.5;user-select:none}
+.cell.on{background:var(--g);border:2px solid var(--g);opacity:1}.cell .hv{font-weight:700}
+.bt,.dt{display:flex;align-items:center;justify-content:center;text-align:center;font-weight:600;border:1px solid var(--ln);border-radius:8px;padding:.4vh .3vw}
+#msg{margin-top:2vh;font-size:clamp(12px,1.3vw,18px);border-left:5px solid var(--g);border-top:1px solid var(--ln);border-right:1px solid var(--ln);border-bottom:1px solid var(--ln);padding:1.2vh 1.2vw;border-radius:6px}
+.tb{position:fixed;top:1.4vh;right:1.4vw;display:flex;gap:.5vw;z-index:9}.tb button{background:var(--navy);border:1px solid var(--g);color:var(--w);border-radius:18px;padding:.6vh 1vw;font-size:12px;cursor:pointer;font-family:inherit}
+.tb button.act{background:var(--g)}
+.nav{position:fixed;bottom:2.4vh;right:2vw;display:flex;gap:.6vw;z-index:9}.nav button{background:var(--navy);border:1px solid var(--g);color:var(--w);border-radius:50%;width:38px;height:38px;font-size:18px;cursor:pointer}
+.nav button:hover{background:var(--g)}
+.pg{position:fixed;bottom:3vh;left:6vw;font-size:13px;opacity:.6;z-index:9}
+body.editing [contenteditable]{outline:1px dashed var(--g);outline-offset:2px;cursor:text}
+@media print{.tb,.nav,.pg{display:none}.s{display:flex!important;height:auto;page-break-after:always;-webkit-print-color-adjust:exact;print-color-adjust:exact}}
+.s.cover{align-items:center;justify-content:center;text-align:center}
+.s.cover h1{max-width:80vw}
+.s.cover h1::after{content:"";display:block;width:90px;height:5px;border-radius:3px;background:var(--g);margin:3vh auto 0}
+.s.cover .sub{font-size:clamp(16px,2.2vw,30px)}
+.s.cover .tag{margin:4vh .5vw 0}
+</style></head><body class="">
+<div class="tb"><button id="bEdit" class="">✎ Editar textos</button><button id="bSave">⬇ Guardar HTML</button><button id="bReset">↺ Reiniciar</button></div>
+<div id="deck">
+
+<section class="s cover">
+ <h1>Funciones del equipo BDR</h1>
+ <p class="sub">Objetivo: agendar <b>17 reuniones al mes</b></p>
+ <div><span class="tag">4 bloques</span><span class="tag">600 empresas/semana</span><span class="tag">3 grupos de 200</span><span class="tag">80% de contacto efectivo</span></div>
+</section>
+
+<section class="s">
+ <h2>1. Distribución de la jornada (8 horas)</h2>
+ <p class="sub" style="margin:0 0 2vh">Cada BDR reparte su día en cuatro bloques, enumerados en orden de prioridad:</p>
+ <table>
+  <tbody><tr><th>Bloque</th><th>% jornada</th><th>Horas</th><th>Canales / herramientas</th></tr>
+  <tr><td>① Generar BD</td><td>20%</td><td>1.6 h</td><td>Apollo, LinkedIn, Apify, Eventos</td></tr>
+  <tr><td>② Prospección</td><td>30%</td><td>2.4 h</td><td>Correos, Llamadas, WhatsApp, LinkedIn</td></tr>
+  <tr><td>③ Seguimiento</td><td>30%</td><td>2.4 h</td><td>LinkedIn, Correo, WhatsApp, Llamada</td></tr>
+  <tr><td>④ Administrativo</td><td>20%</td><td>1.6 h</td><td>CRM, Correos</td></tr>
+ </tbody></table>
+ <p class="note"><br></p>
+</section>
+
+<section class="s">
+ <h2>Planificador: combina días y bloques según la habilidad del BDR</h2>
+ <div class="tools">
+  <span>Perfil sugerido:</span>
+  <button data-p="1234,1234,1234,1234,1234">Estándar</button>
+  <button data-p="14,23,23,23,34">Prospector</button>
+  <button data-p="14,12,13,12,34">Constructor de BD</button>
+  <span>Jornada (h) <input id="H" type="number" min="1" max="12" step="0.5" value="8"></span>
+  <span>Empresas nuevas/semana <input id="T" type="number" min="0" step="50" value="600"></span>
+ </div>
+ <div id="plan" class="pl"><span></span><span class="dh ed">Lun</span><span class="dh ed">Mar</span><span class="dh ed">Mié</span><span class="dh ed">Jue</span><span class="dh ed">Vie</span><span class="dh">Semana</span><div class="bl"><span class="ed">① Generar BD</span><label>peso <input class="wt" type="number" min="0" max="100" value="20">%</label></div><div class="cell on" data-b="0" data-d="0" style="--c:#30A55E"><span class="hv">1.6 h</span></div><div class="cell on" data-b="0" data-d="1" style="--c:#30A55E"><span class="hv">1.6 h</span></div><div class="cell on" data-b="0" data-d="2" style="--c:#30A55E"><span class="hv">1.6 h</span></div><div class="cell on" data-b="0" data-d="3" style="--c:#30A55E"><span class="hv">1.6 h</span></div><div class="cell on" data-b="0" data-d="4" style="--c:#30A55E"><span class="hv">1.6 h</span></div><div class="bt" id="bt0">8 h · 20%</div><div class="bl"><span class="ed">② Prospección</span><label>peso <input class="wt" type="number" min="0" max="100" value="30">%</label></div><div class="cell on" data-b="1" data-d="0" style="--c:#30A55E"><span class="hv">2.4 h</span></div><div class="cell on" data-b="1" data-d="1" style="--c:#30A55E"><span class="hv">2.4 h</span></div><div class="cell on" data-b="1" data-d="2" style="--c:#30A55E"><span class="hv">2.4 h</span></div><div class="cell on" data-b="1" data-d="3" style="--c:#30A55E"><span class="hv">2.4 h</span></div><div class="cell on" data-b="1" data-d="4" style="--c:#30A55E"><span class="hv">2.4 h</span></div><div class="bt" id="bt1">12 h · 30%</div><div class="bl"><span class="ed">③ Seguimiento</span><label>peso <input class="wt" type="number" min="0" max="100" value="30">%</label></div><div class="cell on" data-b="2" data-d="0" style="--c:#30A55E"><span class="hv">2.4 h</span></div><div class="cell on" data-b="2" data-d="1" style="--c:#30A55E"><span class="hv">2.4 h</span></div><div class="cell on" data-b="2" data-d="2" style="--c:#30A55E"><span class="hv">2.4 h</span></div><div class="cell on" data-b="2" data-d="3" style="--c:#30A55E"><span class="hv">2.4 h</span></div><div class="cell on" data-b="2" data-d="4" style="--c:#30A55E"><span class="hv">2.4 h</span></div><div class="bt" id="bt2">12 h · 30%</div><div class="bl"><span class="ed">④ Administrativo</span><label>peso <input class="wt" type="number" min="0" max="100" value="20">%</label></div><div class="cell on" data-b="3" data-d="0" style="--c:#30A55E"><span class="hv">1.6 h</span></div><div class="cell on" data-b="3" data-d="1" style="--c:#30A55E"><span class="hv">1.6 h</span></div><div class="cell on" data-b="3" data-d="2" style="--c:#30A55E"><span class="hv">1.6 h</span></div><div class="cell on" data-b="3" data-d="3" style="--c:#30A55E"><span class="hv">1.6 h</span></div><div class="cell on" data-b="3" data-d="4" style="--c:#30A55E"><span class="hv">1.6 h</span></div><div class="bt" id="bt3">8 h · 20%</div><div class="bl"><span class="ed">Total del día</span></div><div class="dt" id="dt0">8 h</div><div class="dt" id="dt1">8 h</div><div class="dt" id="dt2">8 h</div><div class="dt" id="dt3">8 h</div><div class="dt" id="dt4">8 h</div><div class="dt" id="tt">40 h</div></div>
+ <div id="msg">Con 8 h en ① para 600 empresas/semana: ~75 empresas por hora. Ritmo alcanzable con extracción asistida. Seguimiento (③): 12 h/semana.</div>
+ <p class="note">&nbsp;Las horas del día se reparten según el peso (%) de los bloques activos. *</p>
+</section>
+
+<section class="s">
+ <h2>2. Funciones detalladas</h2>
+ <div class="grid g2">
+  <div class="card"><h3>① Generar base de datos (20%)</h3><ul>
+   <li>Construir bases de datos de prospectos usando Apollo, LinkedIn, Apify y Eventos.</li>
+   <li>Generar 600 empresas con uno o dos contactos (jefe o analista de RR.HH.) a la semana, divididas en grupos de 200 que rotan durante la semana (L, M, M, J, V).</li>
+   <li>La BD generada debe tener contacto efectivo en un 80% (GBD = Contact 80%).</li></ul></div>
+  <div class="card"><h3>② Prospección (30%)</h3><ul>
+   <li>Contactar a los prospectos de la BD por Correo, Llamadas, WhatsApp y LinkedIn.</li>
+   <li>Enviar secuencias por correo: 100%.</li>
+   <li>Realizar llamadas: 25%.</li>
+   <li>Enviar mensajes de WhatsApp: 25%.</li>
+   <li>Conectar y, después, enviar mensaje por LinkedIn: 10%.</li></ul></div>
+ </div>
+</section>
+
+<section class="s">
+ <h2>2. Funciones detalladas</h2>
+ <div class="grid g2">
+  <div class="card"><h3>③ Seguimiento (30%)</h3><ul>
+   <li>Dar seguimiento a los prospectos ya contactados: LinkedIn 10%, Correo 100%, WhatsApp 25% y Llamada 25%.</li>
+   <li>Trabajar sobre una BD de 600 empresas con sus respectivos contactos, dividida en tres grupos de 200 que rotan durante la semana (L, M, M, J, V).</li></ul></div>
+  <div class="card"><h3>④ Administrativo (20%)</h3><ul>
+   <li>Registrar y actualizar la gestión en el CRM.</li>
+   <li>Gestionar correos pendientes.</li>
+   <li>Coordinar con el equipo comercial.</li>
+   <li>Registrar las reuniones agendadas y los reagendamientos.</li>
+   <li>Enviar recordatorio de reunión a prospectos.</li>
+   <li>Asistir a capacitaciones.</li>
+   <li>Asistir a reuniones comerciales o de feedback.</li></ul></div>
+ </div>
+</section>
+
+<section class="s on">
+ <h2>3. Cálculo de la base de datos generada</h2>
+ <table>
+  <tbody><tr><th>Concepto</th><th>Semanal</th><th>Mensual (x4)</th></tr>
+  <tr><td>Base total de seguimiento</td><td>600 (BD)</td><td>2,400</td></tr>
+  <tr><td>Grupos de trabajo</td><td>200 + 200 + 200</td><td>—</td></tr>
+  <tr><td>Contactabilidad de la BD generada (80%)</td><td>480 con contacto efectivo</td><td>1,920</td></tr>
+  <tr><td>Agendamiento a reunión (1% de 480)</td><td>4.8 reuniones</td><td>19.2 (meta: 17)</td></tr>
+ </tbody></table>
+ <p class="sub">Margen sobre la meta: +2.2 reuniones al mes (~13%), si la base de 600 se renueva cada semana.</p>
+ <p class="note">Si la contactabilidad baja a 70% (420 contactos), con 1% salen 4.2 por semana y 16.8 al mes: justo en el límite de la meta.</p>
+</section>
+
+</div>
+<div class="pg" id="pg">6 / 6</div>
+<div class="nav"><button onclick="go(-1)" aria-label="Anterior">‹</button><button onclick="go(1)" aria-label="Siguiente">›</button></div>
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const K='bdr_v3b_deck',COL=['#30A55E','#30A55E','#30A55E','#30A55E'],NM=['① Generar BD','② Prospección','③ Seguimiento','④ Administrativo'],W=[20,30,30,20],DY=['Lun','Mar','Mié','Jue','Vie'];
+let restored=false;
+try{const s=localStorage.getItem(K);if(s){$('#deck').innerHTML=s;restored=true}}catch(e){}
+function buildPlan(){
+ let h='<span></span>'+DY.map(d=>`<span class="dh ed">${d}</span>`).join('')+'<span class="dh">Semana</span>';
+ for(let b=0;b<4;b++){
+  h+=`<div class="bl"><span class="ed">${NM[b]}</span><label>peso <input class="wt" type="number" min="0" max="100" value="${W[b]}">%</label></div>`;
+  for(let d=0;d<5;d++)h+=`<div class="cell on" data-b="${b}" data-d="${d}" style="--c:${COL[b]}"><span class="hv"></span></div>`;
+  h+=`<div class="bt" id="bt${b}"></div>`}
+ h+='<div class="bl"><span class="ed">Total del día</span></div>'+[0,1,2,3,4].map(d=>`<div class="dt" id="dt${d}"></div>`).join('')+'<div class="dt" id="tt"></div>';
+ $('#plan').className='pl';$('#plan').innerHTML=h}
+if(!$('#plan').children.length)buildPlan();
+const f=n=>(Math.round(n*10)/10).toString();
+function calc(){
+ const H=+$('#H').value||0,T=+$('#T').value||0,w=$$('.wt').map(i=>+i.value||0),bt=[0,0,0,0];let days=0;
+ for(let d=0;d<5;d++){
+  const cs=$$(`.cell[data-d="${d}"]`),on=cs.filter(c=>c.classList.contains('on')),sw=on.reduce((a,c)=>a+w[+c.dataset.b],0);
+  cs.forEach(c=>{const hv=c.querySelector('.hv');if(c.classList.contains('on')&&sw>0){const x=H*w[+c.dataset.b]/sw;bt[+c.dataset.b]+=x;hv.textContent=f(x)+' h'}else hv.textContent='—'});
+  $('#dt'+d).textContent=(on.length&&sw>0)?f(H)+' h':'Libre';if(on.length&&sw>0)days++}
+ const tot=H*days;
+ for(let b=0;b<4;b++)$('#bt'+b).textContent=f(bt[b])+' h · '+(tot?Math.round(bt[b]/tot*100):0)+'%';
+ $('#tt').textContent=f(tot)+' h';
+ const m=$('#msg');
+ m.textContent=bt[0]===0?'Sin bloque ① esta semana: no se genera base nueva. Alinear con la meta de '+T+' empresas.':
+  `Con ${f(bt[0])} h en ① para ${T} empresas/semana: ~${Math.round(T/bt[0])} empresas por hora. `+(T/bt[0]>100?'Exige extracción masiva (Apollo/Apify) y validación por lote.':'Ritmo alcanzable con extracción asistida.')+` Seguimiento (③): ${f(bt[2])} h/semana.`}
+function saveState(){try{$$('input').forEach(i=>i.setAttribute('value',i.value));const c=$('#deck').cloneNode(true);c.querySelectorAll('[contenteditable]').forEach(e=>e.removeAttribute('contenteditable'));localStorage.setItem(K,c.innerHTML)}catch(e){}}
+document.addEventListener('click',e=>{
+ const c=e.target.closest('.cell');if(c){c.classList.toggle('on');calc();saveState()}
+ const p=e.target.closest('[data-p]');if(p){p.dataset.p.split(',').forEach((s,d)=>$$(`.cell[data-d="${d}"]`).forEach(x=>x.classList.toggle('on',s.includes(+x.dataset.b+1))));calc();saveState()}});
+document.addEventListener('input',()=>{calc();saveState()});
+function setEdit(on){$$('#deck h1,#deck h2,#deck h3,#deck p,#deck ul,#deck td,#deck th,#deck .tag,#deck .ed,#deck .note').forEach(e=>on?e.setAttribute('contenteditable','true'):e.removeAttribute('contenteditable'));document.body.classList.toggle('editing',on);$('#bEdit').classList.toggle('act',on);$('#bEdit').textContent=on?'✔ Terminar edición':'✎ Editar textos'}
+$('#bEdit').onclick=()=>{const on=!document.body.classList.contains('editing');setEdit(on);if(!on)saveState()};
+$('#bReset').onclick=()=>{if(confirm('¿Volver al contenido original? Se perderán tus cambios guardados en este navegador.')){try{localStorage.removeItem(K)}catch(e){}location.reload()}};
+$('#bSave').onclick=()=>{const was=document.body.classList.contains('editing');setEdit(false);$$('input').forEach(i=>i.setAttribute('value',i.value));
+ const html='<!DOCTYPE html>\n'+document.documentElement.outerHTML;if(was)setEdit(true);
+ const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([html],{type:'text/html'}));a.download='Presentacion_BDR_v3_editada.html';a.click()};
+let S,i=0;function show(){S.forEach((s,k)=>s.classList.toggle('on',k===i));$('#pg').textContent=(i+1)+' / '+S.length}
+function go(d){S=$$('.s');i=Math.max(0,Math.min(S.length-1,i+d));show()}
+document.addEventListener('keydown',e=>{const t=e.target;if(t.isContentEditable||t.tagName==='INPUT')return;if(['ArrowRight','PageDown'].includes(e.key))go(1);if(['ArrowLeft','PageUp'].includes(e.key))go(-1)});
+S=$$('.s');show();calc();
+</script>
+</body></html>
